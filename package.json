@@ -2,11 +2,11 @@
   "name": "parkingSpotLocator",
   "version": "0.0.1",
   "description": "Application to display occupied and open parking spots",
-  "main": "app.js",
+  "main": "./firstApp.js",
   "dependencies" : {
     "express" : "4.12.x",
     "request" : "2.57.x",
-    "path" : "0.11.x",
+    "path" : "0.11.x"
   },
   "engines" : {
     "node" : "0.12.x"
