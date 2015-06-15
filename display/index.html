@@ -13,21 +13,27 @@
 	<script src='/bower_components/angular-google-maps/dist/angular-google-maps.js'></script>
 	<script src='http://maps.googleapis.com/maps/api/js?sensor=false'></script>
 </head>
-
+ 
 <body>
-	<div class = "title"><h1>Ramona Street Parking Spots</h1></div>
+	<div class ="title"><h1>Ramona Street Parking Spots</h1></div>
 	<div ng-app="myApplicationModule">
 		<div ng-controller="MapController">
-			<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+			<ui-gmap-google-map center='map.center' zoom='map.zoom' control="mapControl" bounds='map.bounds'>
 				<ui-gmap-markers models='greenmarkers' coords="'self'" icon= '{url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" }' 
 			></ui-gmap-markers>			
 				<ui-gmap-markers models='redmarkers' coords="'self'" icon= '{url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" }' 
 			></ui-gmap-markers>
-
 			</ui-gmap-google-map>
-			{{markers}}
-			
-		</div>
-	
+			{{markers}}</ui-gmap-google-map>
+			<p>
+                <label>Bounds:</label>
+                <input type="number" ng-model="map.bounds.northeast.latitude" ng-change="updateBounds(map.bounds.northeast.latitude, map.bounds.northeast.longitude, map.bounds.southwest.latitude, map.bounds.southwest.longitude)">,
+                <input type="number" ng-model="map.bounds.northeast.longitude" ng-change="updateBounds(map.bounds.northeast.latitude, map.bounds.northeast.longitude, map.bounds.southwest.latitude, map.bounds.southwest.longitude)">,
+                <input type="number" ng-model="map.bounds.southwest.latitude" ng-change="updateBounds(map.bounds.northeast.latitude, map.bounds.northeast.longitude, map.bounds.southwest.latitude, map.bounds.southwest.longitude)">,
+                <input type="number" ng-model="map.bounds.southwest.longitude" ng-change="updateBounds(map.bounds.northeast.latitude, map.bounds.northeast.longitude, map.bounds.southwest.latitude, map.bounds.southwest.longitude)">
+              </p>
+              {{map.bounds}}
+		</ui-gmap-google-map>
+		<input type="button" value="Reload Page" onClick="window.location.reload()"></input>
 	</div>
 </body>

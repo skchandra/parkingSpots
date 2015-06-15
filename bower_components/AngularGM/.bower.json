@@ -1,0 +1,24 @@
+{
+  "author": {
+    "name": "Dylan Price"
+  },
+  "name": "angular-gm",
+  "version": "1.0.1",
+  "main": [
+    "./angular-gm.js"
+  ],
+  "dependencies": {
+    "angular": ">=1"
+  },
+  "homepage": "https://github.com/dylanfprice/angular-gm-bower",
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.1",
+    "commit": "cf10f49ae614f59c2c5814676a42a3b4357c2c3e"
+  },
+  "_source": "git://github.com/dylanfprice/angular-gm-bower.git",
+  "_target": "~1.0.1",
+  "_originalSource": "AngularGM",
+  "_direct": true
+}

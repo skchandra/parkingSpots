@@ -1,0 +1,15 @@
+.map {
+  height: 300px;
+}
+ 
+/* 
+Fixes Bootstrap issues with Google Maps
+see http://stackoverflow.com/a/9170756 
+*/
+.map img { 
+  max-width: none;
+}
+ 
+input {
+  max-width: 4em;
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html ng-app="simple-map">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/simple_map.css" media="screen" />
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="https://dylanfprice.github.io/angular-gm/1.0.0/angular-gm.js"></script>
+    <script src="https://angulargm.herokuapp.com/angular-gm-0.2.0.min.js"></script> 
+    <script src='/simple_map.js'></script>
+  </head>
+  <body>
+    <div ng-controller="SimpleMapCtrl">
+      <div>
+        <gm-map gm-map-id="'simpleMap'" gm-center="center" gm-zoom="zoom" class="map">
+        </gm-map>
+      </div>
+      <div>
+          <label>
+            Center:
+            <input type="number" ng-model="centerLat" 
+                   ng-change="updateCenter(centerLat, centerLng)"></input>, 
+            <input type="number" ng-model="centerLng" 
+                   ng-change="updateCenter(centerLat, centerLng)"></input>
+          </label>
+          <label>
+            Zoom: <input type="number" ng-model="zoom"></input>
+          </label>
+      </div>
+    </div>
+  </body>
+</html>
