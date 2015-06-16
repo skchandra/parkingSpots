@@ -1,7 +1,7 @@
 var centerlat = 37.44495;
 var centerlong = -122.16163;
 var app = angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
-  .controller('MapController', ['$scope', '$http', function ($scope, $http) {
+  .controller('MapController', ['$scope', '$http', 'uiGmapIsReady', function ($scope, $http) {
     $scope.map = { center: {latitude: centerlat, longitude: centerlong }, zoom: 19, bounds: {} };
     $scope.greenmarkers = [];
     $scope.redmarkers = [];
