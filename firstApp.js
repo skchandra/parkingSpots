@@ -25,102 +25,30 @@ function occupancyCall(ca, fn) {
 }
 
 app.get('/api/gps', function(req, res){
-  request('http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_1/?key=' + APIKEY, {headers: {'Accept': "application/json"}}, function (err, response, body) {
-    /*api call to retrieve coordinate data on sensors in palo alto zone*/
-      if (!err && response.statusCode == 200) {
-        //parse through JSON object
-      try { var result = JSON.parse(body).sensorId;
-        for (var i = 0; i < Object.keys(result).length; i++){
-          var coordinates = result[i].gpsCoord;
-          var sensorId = result[i].guid.toString();
-          coordinatesArray[sensorId] = coordinates;
+  var urls = ["http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_1/?key=", "http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_2/?key=", "http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_3/?key=", "http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_4/?key="]
+  for (var i = 0; i < urls.length; i++) {
+    request(urls[i] + APIKEY, {headers: {'Accept': "application/json"}}, function (err, response, body) {
+      /*api call to retrieve coordinate data on sensors in palo alto zone*/
+        if (!err && response.statusCode == 200) {
+          //parse through JSON object
+        try { var result = JSON.parse(body).sensorId;
+          for (var i = 0; i < Object.keys(result).length; i++){
+            var coordinates = result[i].gpsCoord;
+            var sensorId = result[i].guid.toString();
+            coordinatesArray[sensorId] = coordinates;
+          }
+
+          //make a second API call to retrieve parking occupancy data
+        } catch (err) {
+          console.log(err);
         }
-
-        //make a second API call to retrieve parking occupancy data
-        occupancyCall(coordinatesArray, function(array){
-          res.send(array); //send array containing sensorId, coordinates and occupancy boolean
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-        console.log(err);
-      }
-  });
-});
-
-app.get('/api/gps1', function(req, res){
-  request('http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_2/?key=' + APIKEY, {headers: {'Accept': "application/json"}}, function (err, response, body) {
-    /*api call to retrieve coordinate data on sensors in palo alto zone*/
-      if (!err && response.statusCode == 200) {
-        //parse through JSON object
-      try { var result = JSON.parse(body).sensorId;
-        for (var i = 0; i < Object.keys(result).length; i++){
-          var coordinates = result[i].gpsCoord;
-          var sensorId = result[i].guid.toString();
-          coordinatesArray[sensorId] = coordinates;
+      } else {
+          console.log(err);
         }
-
-        //make a second API call to retrieve parking occupancy data
-        occupancyCall(coordinatesArray, function(array){
-          res.send(array); //send array containing sensorId, coordinates and occupancy boolean
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-        console.log(err);
-      }
-  });
-});
-
-app.get('/api/gps2', function(req, res){
-  request('http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_3/?key=' + APIKEY, {headers: {'Accept': "application/json"}}, function (err, response, body) {
-    /*api call to retrieve coordinate data on sensors in palo alto zone*/
-      if (!err && response.statusCode == 200) {
-        //parse through JSON object
-      try { var result = JSON.parse(body).sensorId;
-        for (var i = 0; i < Object.keys(result).length; i++){
-          var coordinates = result[i].gpsCoord;
-          var sensorId = result[i].guid.toString();
-          coordinatesArray[sensorId] = coordinates;
-        }
-
-        //make a second API call to retrieve parking occupancy data
-        occupancyCall(coordinatesArray, function(array){
-          res.send(array); //send array containing sensorId, coordinates and occupancy boolean
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-        console.log(err);
-      }
-  });
-});
-
-app.get('/api/gps3', function(req, res){
-  request('http://api.landscape-computing.com/nboxws/rest/v1/zone/lg_4/?key=' + APIKEY, {headers: {'Accept': "application/json"}}, function (err, response, body) {
-    /*api call to retrieve coordinate data on sensors in palo alto zone*/
-      if (!err && response.statusCode == 200) {
-        //parse through JSON object
-      try { var result = JSON.parse(body).sensorId;
-        for (var i = 0; i < Object.keys(result).length; i++){
-          var coordinates = result[i].gpsCoord;
-          var sensorId = result[i].guid.toString();
-          coordinatesArray[sensorId] = coordinates;
-        }
-
-        //make a second API call to retrieve parking occupancy data
-        occupancyCall(coordinatesArray, function(array){
-          res.send(array); //send array containing sensorId, coordinates and occupancy boolean
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-        console.log(err);
-      }
+    });
+  }
+  occupancyCall(coordinatesArray, function(array){
+    res.send(array); //send array containing sensorId, coordinates and occupancy boolean
   });
 });
 

@@ -1,8 +1,8 @@
-var centerlat = 37.221712;
-var centerlong = -121.984411085;
+var centerlat = 37.2213723998;
+var centerlong = -121.984349394;
 var app = angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
   .controller('MapController', ['$scope', '$http', function ($scope, $http) {
-    $scope.map = { center: {latitude: centerlat, longitude: centerlong }, zoom: 19, bounds: {} };
+    $scope.map = { center: {latitude: centerlat, longitude: centerlong }, zoom: 18, bounds: {} };
     $scope.greenmarkers = [];
     $scope.newmarkers = [];
     $scope.redmarkers = [];
@@ -33,17 +33,7 @@ var app = angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
 
     //wrap the server call into a function
     //it will allow multiple calls later
-    function refreshMarkers(){
-      /*if (num === 1) {
-        var apiCall = 'api/gps1';
-      } else if (num === 2) { 
-        var apiCall = 'api/gps2';
-      } else if (num === 3) {
-        var apiCall = 'api/gps3';
-      } else {
-        var apiCall = 'api/gps';
-      }*/
-      
+    function refreshMarkers() {      
       $http.get('api/gps').success(function (data) {
         $scope.sensors = data;
 
@@ -81,10 +71,10 @@ var app = angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
           } else {
             if (occupied === "0") {
               if (markerHistory[i] === "1") {
-                alert('A new spot opened up!');
+                alert('A new spot opened up at ' + startTime());
                 $scope.newmarkers.push(createMarker(i));
-              }
-            }
+              } 
+            } 
             markerHistory[i] = occupied;
           }
 
@@ -98,10 +88,17 @@ var app = angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
     });
   }
 
+  function startTime(){
+    var today = new Date();
+    var h = ((today.getHours() <= 12) ? today.getHours() : today.getHours() - 12);
+    var m = today.getMinutes();
+    var s = today.getSeconds(); 
+    return [ h, m, s ].join(':')
+  }
   //call the function to init the markers immediately
   refreshMarkers();
 
   //define refresh interval in milliseconds
   //after each 2 seconds the function will be called and markers refreshed
-  setInterval(refreshMarkers, 3000);
+  setInterval(refreshMarkers, 4000);
 }]);

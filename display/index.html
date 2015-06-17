@@ -17,14 +17,14 @@
 <body>
 	<div class ="title">
 		<h1>Los Gatos Parking Spots</h1>
-		<h3>S. Santa Cruz Ave. near Broadway</h3>
+		<h3>S. Santa Cruz Ave.</h3>
 	</div>
 	<div ng-app="myApplicationModule">
 		<div ng-controller="MapController">
 			<ui-gmap-google-map center='map.center' zoom='map.zoom' control="mapControl" bounds='map.bounds'>
-				<ui-gmap-markers models='greenmarkers' coords="'self'" icon= '{url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" }'>
+				<ui-gmap-markers models='greenmarkers' fit="true" coords="'self'" icon= '{url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" }'>
 				</ui-gmap-markers>			
-				<ui-gmap-markers models='redmarkers' coords="'self'" icon= '{url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" }'>
+				<ui-gmap-markers models='redmarkers' fit="true" coords="'self'" icon= '{url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" }' >
 				</ui-gmap-markers>
 				<ui-gmap-markers models='newmarkers' coords="'self'" icon= '{url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png" }'>
 					<ui-gmap-windows show="'showWindow'" ng-cloak>
@@ -33,6 +33,7 @@
 				</ui-gmap-markers>
 			</ui-gmap-google-map>
 			<p>
+				{{map.center}}
                 <label>Bounds:</label>
                 <input type="number" ng-model="map.bounds.northeast.latitude" ng-change="updateBounds(map.bounds.northeast.latitude, map.bounds.northeast.longitude, map.bounds.southwest.latitude, map.bounds.southwest.longitude)">,
                 <input type="number" ng-model="map.bounds.northeast.longitude" ng-change="updateBounds(map.bounds.northeast.latitude, map.bounds.northeast.longitude, map.bounds.southwest.latitude, map.bounds.southwest.longitude)">,
